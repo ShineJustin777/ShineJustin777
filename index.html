@@ -162,6 +162,28 @@ section { padding-block: 84px; position: relative; }
 .room .play { position: absolute; top: 8px; right: 8px; width: 30px; height: 30px; border-radius: 50%; background: rgba(5,11,20,.7); border: 1px solid var(--signal); display: grid; place-items: center; }
 .room .play::before { content: ""; border-left: 9px solid var(--signal); border-top: 6px solid transparent; border-bottom: 6px solid transparent; margin-left: 3px; }
 
+/* floor plan */
+.planwrap { margin-top: 34px; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr); gap: 32px; padding: 28px; align-items: center; }
+.plan { width: 100%; max-width: 560px; height: auto; justify-self: center; display: block; }
+.plan .shell { fill: rgba(90,230,255,.035); }
+.plan .wall { fill: none; stroke: var(--signal); stroke-width: 3.2; stroke-linejoin: round; pointer-events: none; }
+.plan .rm rect { fill: rgba(90,230,255,.02); stroke: rgba(90,230,255,.55); stroke-width: 1.1; transition: fill .25s, stroke .25s; }
+.plan .rm.dashed rect { stroke-dasharray: 4 3; fill: none; }
+.plan .rm { cursor: pointer; outline: none; }
+.plan .rm:hover rect, .plan .rm:focus-visible rect, .plan .rm.on rect { fill: rgba(90,230,255,.18); stroke: var(--signal); }
+.plan .rm.on rect { fill: rgba(242,166,90,.18); stroke: var(--dusk); }
+.plan text { text-anchor: middle; dominant-baseline: middle; pointer-events: none; }
+.plan .rl { font-family: var(--hud); font-weight: 600; letter-spacing: .06em; fill: var(--ink); }
+.plan .rd { font-family: var(--hud); font-size: 7.6px; fill: var(--signal); letter-spacing: .04em; }
+.plan .cap { font-family: var(--hud); font-size: 9px; letter-spacing: .14em; fill: var(--mute); text-anchor: start; }
+.planinfo .sel { font-family: var(--display); font-weight: 700; font-size: 26px; margin: 6px 0 18px; color: var(--signal); }
+.legend { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+.legend li { border-top: 1px solid var(--line); padding-top: 10px; }
+.legend b { display: block; font-weight: 600; }
+.legend span { color: var(--mute); font-size: 14px; }
+.planinfo .note { color: var(--mute); font-size: 12px; margin-top: 16px; }
+@media (max-width: 900px) { .planwrap { grid-template-columns: minmax(0, 1fr); padding: 18px; } }
+
 /* room sizes */
 .sizes { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin-top: 34px; }
 .size { padding: 18px 18px 16px; display: flex; flex-direction: column; gap: 12px; }
@@ -319,6 +341,37 @@ footer p { margin: 6px 0 0; }
   </div>
 </section>
 
+<section id="plan">
+  <div class="wrap">
+    <div class="rv">
+      <p class="hud">Blueprint scan // floor 1</p>
+      <h2>The floor plan</h2>
+      <p class="lede">One level, split bedrooms, and an open great room, cafe and kitchen. Tap any room to watch it in the video tour.</p>
+    </div>
+    <div class="planwrap glass br"><i></i><i></i><i></i><i></i>
+      <svg class="plan" viewBox="0 0 400 680" role="group" aria-label="Floor plan of 9463 Barnstormer Drive">
+  <defs><filter id="gl" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="2.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+  <polygon class="shell" points="12,96 384,96 384,662 191,662 191,574 129,574 129,612 12,612"/>
+  <g class="rm" data-ch="Screened porch" tabindex="0" role="button" aria-label="Screened Porch: play in tour"><rect x="42" y="12" width="140" height="84"/><text class="rl" x="112.0" y="50.0" style="font-size:9.5px">SCREENED PORCH</text><text class="rd" x="112.0" y="63.0">14′0″ × 8′0″</text></g><g class="rm dashed" data-ch="Backyard" tabindex="0" role="button" aria-label="Patio: play in tour"><rect x="182" y="12" width="119" height="84"/><text class="rl" x="241.5" y="50.0" style="font-size:9.5px">PATIO</text><text class="rd" x="241.5" y="63.0">12′0″ × 8′3″</text></g><g class="rm" data-ch="Living room" tabindex="0" role="button" aria-label="Great Room: play in tour"><rect x="12" y="96" width="168" height="148"/><text class="rl" x="96.0" y="166.0" style="font-size:9.5px">GREAT ROOM</text><text class="rd" x="96.0" y="179.0">16′6″ × 14′4″</text></g><g class="rm" data-ch="Kitchen & dining" tabindex="0" role="button" aria-label="Cafe: play in tour"><rect x="12" y="244" width="168" height="90"/><text class="rl" x="96.0" y="285.0" style="font-size:9.5px">CAFE</text><text class="rd" x="96.0" y="298.0">16′6″ × 7′4″</text></g><g class="rm" data-ch="Kitchen & dining" tabindex="0" role="button" aria-label="Kitchen: play in tour"><rect x="12" y="334" width="157" height="98"/><text class="rl" x="90.5" y="379.0" style="font-size:9.5px">KITCHEN</text><text class="rd" x="90.5" y="392.0">Island · farm sink</text></g><g class="rm" data-ch="Master suite" tabindex="0" role="button" aria-label="Owner’S Suite: play in tour"><rect x="180" y="96" width="150" height="138"/><text class="rl" x="255.0" y="161.0" style="font-size:9.5px">OWNER’S SUITE</text><text class="rd" x="255.0" y="174.0">15′1″ × 14′1″</text></g><g class="rm" data-ch="Master closet" tabindex="0" role="button" aria-label="Wic: play in tour"><rect x="330" y="96" width="54" height="118"/><text class="rl" x="357.0" y="158.0" style="font-size:7.2px">WIC</text></g><g class="rm" data-ch="Master suite" tabindex="0" role="button" aria-label="Owner Bath: play in tour"><rect x="180" y="234" width="84" height="92"/><text class="rl" x="222.0" y="283.0" style="font-size:7.2px">OWNER BATH</text></g><g class="rm" data-ch="Bedroom 2" tabindex="0" role="button" aria-label="Bedroom 2: play in tour"><rect x="280" y="234" width="104" height="108"/><text class="rl" x="332.0" y="284.0" style="font-size:9.5px">BEDROOM 2</text><text class="rd" x="332.0" y="297.0">11′8″ × 11′6″</text></g><g class="rm" data-ch="Entry closet" tabindex="0" role="button" aria-label="Hall: play in tour"><rect x="169" y="342" width="111" height="42"/><text class="rl" x="224.5" y="366.0" style="font-size:7.2px">HALL</text></g><g class="rm" data-ch="Bedroom 3" tabindex="0" role="button" aria-label="Bedroom 3: play in tour"><rect x="280" y="356" width="104" height="113"/><text class="rl" x="332.0" y="408.5" style="font-size:9.5px">BEDROOM 3</text><text class="rd" x="332.0" y="421.5">11′4″ × 10′0″</text></g><g class="rm" data-ch="Laundry room" tabindex="0" role="button" aria-label="Laundry: play in tour"><rect x="169" y="384" width="57" height="85"/><text class="rl" x="197.5" y="429.5" style="font-size:7.2px">LAUNDRY</text></g><g class="rm" data-ch="Guest bath" tabindex="0" role="button" aria-label="Bath 2: play in tour"><rect x="226" y="384" width="54" height="85"/><text class="rl" x="253.0" y="429.5" style="font-size:7.2px">BATH 2</text></g><g class="rm" data-ch="Office" tabindex="0" role="button" aria-label="Study: play in tour"><rect x="12" y="432" width="117" height="180"/><text class="rl" x="70.5" y="518.0" style="font-size:9.5px">STUDY</text><text class="rd" x="70.5" y="531.0">11′4″ × 18′0″</text></g><g class="rm" data-ch="Entry closet" tabindex="0" role="button" aria-label="Foyer: play in tour"><rect x="129" y="469" width="62" height="105"/><text class="rl" x="160.0" y="524.5" style="font-size:7.2px">FOYER</text></g><g class="rm" data-ch="Driveway & garage" tabindex="0" role="button" aria-label="2-Car Garage: play in tour"><rect x="191" y="469" width="193" height="193"/><text class="rl" x="287.5" y="561.5" style="font-size:9.5px">2-CAR GARAGE</text><text class="rd" x="287.5" y="574.5">Epoxy floor</text></g>
+  <polygon class="wall" points="12,96 384,96 384,662 191,662 191,574 129,574 129,612 12,612" filter="url(#gl)"/>
+  <text class="cap" x="12" y="672">FLOOR 1 · 1,720 SQ FT</text>
+  <text class="cap" x="160" y="592" style="text-anchor:middle">▲ ENTRY</text>
+</svg>
+      <div class="planinfo">
+        <p class="hud">Selected room</p>
+        <p class="sel" id="plansel">Tap a room</p>
+        <ul class="legend">
+          <li><b>Split bedrooms</b><span>Owner’s suite on one side, bedrooms 2 and 3 on the other</span></li>
+          <li><b>Open living</b><span>Great room, cafe and kitchen flow into one space</span></li>
+          <li><b>Study by the entry</b><span>A quiet office, guest room or fourth bedroom</span></li>
+          <li><b>Screened porch + patio</b><span>Off the great room, facing the backyard</span></li>
+        </ul>
+        <p class="note">Redrawn from the builder plan for this home. Layout is approximate; verify dimensions.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="sizes">
   <div class="wrap">
     <div class="rv">
@@ -454,6 +507,17 @@ document.getElementById("sizegrid").innerHTML = SIZES.map(([n, a, b, note]) => {
   const w = Math.max(a, b), h = Math.min(a, b), area = Math.round(a * b);
   return `<div class="size glass br"><i></i><i></i><i></i><i></i><div class="pad"><div class="box ${area >= 200 ? "big" : ""}" style="width:${(w * PX).toFixed(0)}px;height:${(h * PX).toFixed(0)}px" role="img" aria-label="${n}: ${ftin(w)} by ${ftin(h)}"><span class="w">${ftin(w)}</span><span class="h">${ftin(h)}</span></div></div><div class="row"><b>${n}</b><span class="ft">${area} sq ft</span></div><small>${ftin(a)} × ${ftin(b)} · ${note}</small></div>`;
 }).join("");
+const planSel = document.getElementById("plansel");
+document.querySelectorAll(".plan .rm").forEach(g => {
+  const go = () => {
+    document.querySelectorAll(".plan .rm").forEach(x => x.classList.remove("on")); g.classList.add("on");
+    const ch = g.dataset.ch; planSel.textContent = g.getAttribute("aria-label").replace(": play in tour", "");
+    vid.currentTime = startOf(ch) + 0.9; vid.play().catch(() => {});
+    document.getElementById("player").scrollIntoView({ behavior: "smooth", block: "center" });
+  };
+  g.addEventListener("click", go);
+  g.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
+});
 // count-up numbers + reveal + drive bars
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 function countUp(el) {
