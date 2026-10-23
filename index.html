@@ -219,7 +219,7 @@ footer p { margin: 6px 0 0; }
     </div>
     <div class="phone br rv">
       <i></i><i></i><i></i><i></i>
-      <video src="reel.mp4" poster="img/r01.jpg" autoplay muted loop playsinline aria-label="30-second highlight video of the home"></video>
+      <video src="reel.mp4?v=1023" poster="img/r01.jpg?v=1023" autoplay muted loop playsinline aria-label="30-second highlight video of the home"></video>
       <span class="tag">Live preview</span>
     </div>
   </div>
@@ -229,7 +229,7 @@ footer p { margin: 6px 0 0; }
   <div class="wrap loc">
     <div class="phone br rv">
       <i></i><i></i><i></i><i></i>
-      <video src="map.mp4" poster="img/r01.jpg" autoplay muted loop playsinline aria-label="Animated map showing the home and drive times"></video>
+      <video src="map.mp4?v=1023" poster="img/r01.jpg?v=1023" autoplay muted loop playsinline aria-label="Animated map showing the home and drive times"></video>
       <span class="tag">Location scan</span>
     </div>
     <div class="rv">
@@ -261,7 +261,7 @@ footer p { margin: 6px 0 0; }
     <div class="tour">
       <div class="phone br" id="player">
         <i></i><i></i><i></i><i></i>
-        <video id="full" src="tour.mp4" poster="img/r08.jpg" controls playsinline preload="auto" aria-label="Full home tour video"></video>
+        <video id="full" src="tour.mp4?v=1023" poster="img/r08.jpg?v=1023" controls playsinline preload="auto" aria-label="Full home tour video"></video>
         <span class="tag now" id="now">Now showing: Location</span>
       </div>
       <div class="rooms" id="rooms"></div>
@@ -367,7 +367,7 @@ const vid = document.getElementById("full"), now = document.getElementById("now"
 const CH = CHAPTERS.map(([t, s]) => [t.toLowerCase(), s]);
 const startOf = name => { const c = CH.find(([t]) => t === name.toLowerCase()); return c ? c[1] : 0; };
 document.getElementById("rooms").innerHTML = ROOMS.map(([t, s], i) =>
-  `<button type="button" class="room" data-t="${startOf(t)}" aria-label="Play ${t} in the tour video"><img src="img/r${pad(i + 1)}.jpg" alt="" loading="lazy"><span class="play" aria-hidden="true"></span><span class="cap"><span class="n">ROOM ${pad(i + 1)}</span><b>${t}</b><small>${s}</small></span></button>`).join("");
+  `<button type="button" class="room" data-t="${startOf(t)}" aria-label="Play ${t} in the tour video"><img src="img/r${pad(i + 1)}.jpg?v=1023" alt="" loading="lazy"><span class="play" aria-hidden="true"></span><span class="cap"><span class="n">ROOM ${pad(i + 1)}</span><b>${t}</b><small>${s}</small></span></button>`).join("");
 const roomBtns = [...document.querySelectorAll(".room")];
 document.getElementById("rooms").addEventListener("click", e => {
   const b = e.target.closest(".room"); if (!b) return;
