@@ -142,6 +142,20 @@ section { padding-block: 84px; position: relative; }
 .room .play { position: absolute; top: 8px; right: 8px; width: 30px; height: 30px; border-radius: 50%; background: rgba(5,11,20,.7); border: 1px solid var(--signal); display: grid; place-items: center; }
 .room .play::before { content: ""; border-left: 9px solid var(--signal); border-top: 6px solid transparent; border-bottom: 6px solid transparent; margin-left: 3px; }
 
+/* room sizes */
+.sizes { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin-top: 34px; }
+.size { padding: 18px 18px 16px; display: flex; flex-direction: column; gap: 12px; }
+.size .pad { height: 150px; display: grid; place-items: center; background-image: linear-gradient(rgba(90,230,255,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(90,230,255,.06) 1px, transparent 1px); background-size: 12px 12px; border-radius: 4px; }
+.size .box { border: 2px solid var(--signal); background: rgba(90,230,255,.08); box-shadow: 0 0 18px rgba(90,230,255,.25) inset, 0 0 14px rgba(90,230,255,.2); position: relative; }
+.size .box.big { border-color: var(--dusk); background: rgba(242,166,90,.08); box-shadow: 0 0 18px rgba(242,166,90,.25) inset, 0 0 14px rgba(242,166,90,.2); }
+.size .box span { position: absolute; font-family: var(--hud); font-size: 11px; color: var(--mute); letter-spacing: .06em; white-space: nowrap; }
+.size .box .w { top: -18px; left: 50%; transform: translateX(-50%); }
+.size .box .h { right: -8px; top: 50%; transform: translate(100%, -50%); }
+.size .row { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.size b { font-weight: 600; }
+.size .ft { white-space: nowrap; font-family: var(--display); font-weight: 700; color: var(--signal); font-variant-numeric: tabular-nums; }
+.size small { color: var(--mute); font-size: 13px; }
+
 /* facts + why */
 .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; }
 .reasons { list-style: none; padding: 0; margin: 24px 0 0; display: grid; gap: 10px; }
@@ -269,6 +283,17 @@ footer p { margin: 6px 0 0; }
   </div>
 </section>
 
+<section id="sizes">
+  <div class="wrap">
+    <div class="rv">
+      <p class="hud">Floor plan data // room sizes</p>
+      <h2>Room sizes, drawn to scale</h2>
+      <p class="lede">Every box below uses the same scale, so you can compare rooms at a glance. Dimensions come from the listing; this is a size guide, not an architectural floor plan.</p>
+    </div>
+    <div class="sizes" id="sizegrid"></div>
+  </div>
+</section>
+
 <section>
   <div class="wrap split">
     <div class="rv">
@@ -384,6 +409,15 @@ document.getElementById("mods").innerHTML = MODS.map(([ic, t, p]) =>
   `<div class="mod glass br rv"><i></i><i></i><i></i><i></i><svg viewBox="0 0 24 24" aria-hidden="true">${ICON[ic]}</svg><h3>${t}</h3><p>${p}</p></div>`).join("");
 document.getElementById("drives").innerHTML = DRIVES.map(([t, m, c, s]) =>
   `<li class="drive glass ${c}"><div class="row"><b>${t}</b><span class="min">~${m} min</span></div><div class="track"><i data-w="${Math.max(4, m / 25 * 100)}"></i></div><small>${s}</small></li>`).join("");
+const SIZES = [["Office / bedroom 4", 18, 11.33, "Large enough for a desk, sofa and more"], ["Great room", 16.5, 14.33, "Living room with the fireplace wall"],
+["Primary bedroom", 15.12, 14.12, "Plus private bath and walk-in closet"], ["Kitchen", 16.5, 7.33, "Island, farmhouse sink, walk-in pantry"],
+["Bedroom 2", 11.66, 11.55, "Guest bedroom"], ["Bedroom 3", 11.33, 10, "Guest bedroom"], ["Laundry", 8, 7, "Washer and dryer included"]];
+const ftin = v => { let f = Math.floor(v), i = Math.round((v - f) * 12); if (i === 12) { f++; i = 0; } return `${f}′${i}″`; };
+const PX = 6.4;
+document.getElementById("sizegrid").innerHTML = SIZES.map(([n, a, b, note]) => {
+  const w = Math.max(a, b), h = Math.min(a, b), area = Math.round(a * b);
+  return `<div class="size glass br"><i></i><i></i><i></i><i></i><div class="pad"><div class="box ${area >= 200 ? "big" : ""}" style="width:${(w * PX).toFixed(0)}px;height:${(h * PX).toFixed(0)}px" role="img" aria-label="${n}: ${ftin(w)} by ${ftin(h)}"><span class="w">${ftin(w)}</span><span class="h">${ftin(h)}</span></div></div><div class="row"><b>${n}</b><span class="ft">${area} sq ft</span></div><small>${ftin(a)} × ${ftin(b)} · ${note}</small></div>`;
+}).join("");
 // count-up numbers + reveal + drive bars
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 function countUp(el) {
